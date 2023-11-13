@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import NavBar from './components/NavBar/NavBar';
+import ExpirationBox from './components/ExpirationBox/ExpirationBox';
+import EmployeeSearch from './components/EmployeeSearch/EmployeeSearch';
+import EmployeeCard from './components/EmployeeCard/EmployeeCard';
+import EmployeeHistory from './components/EmployeeHistory/EmployeeHistory';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <NavBar/>
+    <div className='components'>
+    <ExpirationBox/>
+    <EmployeeSearch/>
+    <EmployeeCard/>
+    <EmployeeHistory/>
+    </div>
   </React.StrictMode>
 );
 
