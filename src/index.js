@@ -5,8 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import NavBar from './components/NavBar/NavBar';
 import ExpirationBox from './components/ExpirationBox/ExpirationBox';
 import EmployeeSearch from './components/EmployeeSearch/EmployeeSearch';
-import EmployeeCard from './components/EmployeeCard/EmployeeCard';
-import EmployeeHistory from './components/EmployeeHistory/EmployeeHistory';
+import EmployeeUpdateButton from './components/EmployeeUpdate/EmployeeUpdate';
+import MyProfile from './components/MyProfile/MyProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,8 +15,7 @@ root.render(
     <div className='components'>
     <ExpirationBox/>
     <EmployeeSearch/>
-    <EmployeeCard/>
-    <EmployeeHistory/>
+    <MyProfile/>
     </div>
   </React.StrictMode>
 );

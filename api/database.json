@@ -207,14 +207,15 @@
     ],
     "organizations": [
         {"id": 1, "name": "Sacred Heart Hospital", "street": "111 Hal Greer Boulevard", "city": "Huntington", "state": "WV", "zip": "25701"},
-        {"id": 2, "name": "St. Thomas Hospital", "street": "245 Legitimate Street", "city": "Huntington", "state": "WV", "zip": "25703"}
+        {"id": 2, "name": "St. Thomas Hospital - ER", "street": "245 Legitimate Street", "city": "Huntington", "state": "WV", "zip": "25703"},
+        {"id": 3, "name": "St. Thomas Hospital - PICU", "street": "245 Legitimate Street", "city": "Huntington", "state": "WV", "zip": "25703"}
     ],
     "adminOrgs": [
         {"id": 1, "adminId": 1, "orgId": 2},
         {"id": 2, "adminId": 2, "orgId": 1}
     ],
     "admins": [
-        {"id":1, "orgId": 1, "firstName": "Freddie", "lastName": "Reubens", "title": "ER Nursing Manager", "email": "freubens@sttom.org", "password": "freddiepw"},
+        {"id":1, "orgId": 1, "firstName": "Freddie", "lastName": "Reubens", "title": "Nursing Manager", "email": "freubens@sttom.org", "password": "freddiepw"},
         {"id":2, "orgId": 2, "firstName": "Ingrid", "lastName": "Castlegate", "title": "HR Business Partner", "email": "icastlegate@shh.org", "password": "ingridpw"}
     ],
     "certs": [

@@ -1,0 +1,16 @@
+.my-info-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-organization-card {
+    border: 2px solid pink;
+    margin: 1em;
+    padding: 1em;
+}
+
+.my-employee-card {
+    border: 2px solid green;
+    margin: 1em;
+    padding: 1em;
+}
