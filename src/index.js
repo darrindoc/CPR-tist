@@ -1,23 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import NavBar from './components/NavBar/NavBar';
-import ExpirationBox from './components/ExpirationBox/ExpirationBox';
-import EmployeeSearch from './components/EmployeeSearch/EmployeeSearch';
-import EmployeeUpdateButton from './components/EmployeeUpdate/EmployeeUpdate';
-import MyProfile from './components/MyProfile/MyProfile';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Switch from "react-switch";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import Dashboard from "./Dashboard/Dashboard";
+import CPRtist from "./CPRTist";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <NavBar/>
-    <div className='components'>
-    <ExpirationBox/>
-    <EmployeeSearch/>
-    <MyProfile/>
-    </div>
-  </React.StrictMode>
+    <React.StrictMode>
+      <BrowserRouter>
+        <CPRtist/>
+      </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

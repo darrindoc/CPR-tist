@@ -1,11 +1,34 @@
+import { Link, useNavigate } from "react-router-dom";
 import './NavBar.css'
+import { getAdminEmail, getAdminInfo } from "../../auth/AuthAPIManager";
+
+
 
 export default function NavBar() {
+    const navigate = useNavigate();
+    const localCPRtistAdmin = localStorage.getItem("activeAdmin");
+	const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
+
+    const admin = getAdminInfo
+
+  
+
     return (
         <div className="navbar">
-            <button type="button" class="btn btn-dark">Logout</button>
+            <div className='logout-button'>
+            <Link
+                className='navbar__link'
+                to=''
+                onClick={() => {
+                    localStorage.removeItem("activeAdmin");
+                    navigate("/", { replace: true });
+                }}
+            >
+                <button type="button" class="btn btn-dark">Logout</button>
+            </Link>
+            </div>
             <p>Signed in as: <br/>
-                Darrin Daugherty</p>
+                {admin.firstName}</p>
             <div>
                 <label for="org-select">Organization: </label>
                 <br/>
