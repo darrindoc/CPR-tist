@@ -1,17 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import './NavBar.css'
 import { getAdminEmail, getAdminInfo } from "../../auth/AuthAPIManager";
+import { adminAPIData } from "../ComponentAPIManager";
+import { useState, useEffect } from "react";
+
+
 
 
 
 export default function NavBar() {
+    const [admins, setAdmins ] = useState([])
     const navigate = useNavigate();
     const localCPRtistAdmin = localStorage.getItem("activeAdmin");
 	const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
 
-    const admin = getAdminInfo
-
-  
+   useEffect(() => {
+    adminAPIData()
+    .then((adminArray) => {
+        setAdmins(adminArray)
+    })
+   },[])
 
     return (
         <div className="navbar">
@@ -27,8 +35,13 @@ export default function NavBar() {
                 <button type="button" class="btn btn-dark">Logout</button>
             </Link>
             </div>
-            <p>Signed in as: <br/>
-                {admin.firstName}</p>
+            <div className="logged-in-as">
+                
+            {admins.map((admin) => 
+                <p>Logged in as: <br></br>{admin.firstName} {admin.lastName}</p>
+            )}
+            </div>
+                
             <div>
                 <label for="org-select">Organization: </label>
                 <br/>

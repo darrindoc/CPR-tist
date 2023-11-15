@@ -1,13 +1,43 @@
 import CPRUpdateButton from '../CPRUpdate/CPRUpdate';
 import EmployeeUpdateButton from '../EmployeeUpdate/EmployeeUpdate';
 import AddEmployeeButton from '../AddEmployee/AddEmployee';
+
+import { useState, useEffect } from "react";
+
+
 import './EmployeeSearch.css'
+import { certAPIData, employeeAPIData } from '../ComponentAPIManager';
 
 
 
 
 export default function EmployeeSearch() {
-    return (<>
+
+    var expirationDate = new Date(1701388700000);
+    var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear()
+
+console.log(expDateFormatted)
+
+    const [employees, setEmployees ] = useState([])
+    const [certs, setCerts] =useState([])
+
+    
+    useEffect(() => {
+        employeeAPIData()
+        .then((employeeArray) => {
+            setEmployees(employeeArray)
+        })
+       },[])
+
+       useEffect(() => {
+        certAPIData()
+        .then((certArray) => {
+            setCerts(certArray)
+        })
+       },[])
+
+
+return (<>
 
 <div class="m-4">
     <div class="card text-center">
@@ -24,7 +54,11 @@ export default function EmployeeSearch() {
                     <a href="#history" class="nav-link" data-bs-toggle="tab">History</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Jane Doe, RN</a>
+                <a class="nav-link disabled" aria-disabled="true">
+                    {employees.map((employee) => 
+                         <p>{employee.firstName} {employee.lastName}, {employee.title}</p>
+                    )}
+                </a>
                 </li>
             </ul>
         </div>
@@ -42,25 +76,34 @@ export default function EmployeeSearch() {
                     </div>
                 </div>
                 <div class="tab-pane fade" id="info">
-                    <h5 class="card-title-add">Jane Doe, RN</h5>
-                    <p>Employee ID: JD1445</p>
-                    <p>Certified through: Red Cross</p>
-                    <p>Certification Number: RC8874158</p>
-                    <p>Expiration: 11/30/2023</p>
+                        <div className='employee-demographics'>
+                        {employees.map((employee) => <>
+                            <h5>{employee.firstName} {employee.lastName}, {employee.title}</h5>
+                            <p>Employee ID: {employee.employeeId}</p>
+                            </>
+                        )}
+                        {certs.map((cert) => <>
+                            <p>Certified through: {cert.agency} </p>
+                            <p>Certification Number: {cert.certNumber} </p>
+                            <p>Expiration: {expDateFormatted} </p>
+                        </>
+                         )}
+
+                        </div>
                     <EmployeeUpdateButton/>
                     <CPRUpdateButton/>
                     <button type="button" class="btn btn-danger">Delete Employee</button>
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="history">
                     <h5 class="card-title">Certification History</h5>
-                    <div className="cert-history">
-                        <p>Agency: Red Cross</p>
-                        <p>Dates: 11/30/2021 - 11/30/2022</p>
-                    </div>
-                    <div className="cert-history">
-                        <p>Agency: American Heart Association</p>
-                        <p>Dates: 11/30/2020 - 11/30/2021</p>
-                    </div>
+                    {certs.map((cert) => 
+                            <div className='specific-cert-card'>
+                            <p>Agency: {cert.agency} </p>
+                            <p>Certification Number: {cert.certNumber} </p>
+                            <p>Expiration: {expDateFormatted} </p>
+                            </div>
+                         )}
+                    
                 </div>
             </div>
         </div>

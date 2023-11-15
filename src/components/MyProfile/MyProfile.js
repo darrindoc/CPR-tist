@@ -1,10 +1,21 @@
+import { adminAPIData } from '../ComponentAPIManager';
 import './MyProfile.css'
+import { useState, useEffect } from 'react';
 
 
 
 export default function MyProfile() {
-    return (<>
+    const [admins, setAdmins ] = useState([])
 
+
+    useEffect(() => {
+        adminAPIData()
+        .then((adminArray) => {
+            setAdmins(adminArray)
+        })
+       },[])
+
+    return (<>
 <div class="m-4">
     <div class="card text-center">
         <div class="card-header">
@@ -27,6 +38,13 @@ export default function MyProfile() {
                     <h5 class="card-title">Update Information</h5>
                     <div className='my-info-form'>
                         <div className="my-info-list">
+                        {admins.map((admin) => 
+                        <>First Name: {admin.firstName}<br></br> 
+                        Last Name: {admin.lastName}<br></br> 
+                        Title: {admin.title}<br></br>
+                        email: {admin.email}                       
+                        </> 
+            )}
                             <div>First Name: <input type="text" placeholder="First Name"/></div>
                             <div>Last Name: <input type="text" placeholder="Last Name"/></div>
                             <div>Title: <input type="text" placeholder="Title"/></div>
