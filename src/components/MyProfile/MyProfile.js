@@ -47,7 +47,7 @@ export default function MyProfile() {
                         <p>245 Legitimate Street Huntington, WV 25703 </p>
                         <button type="button" class="btn btn-danger">Delete Organization</button>
                     </div>
-                    
+                    <button type="button" class="btn btn-primary">Add Organization</button>
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="my-employees">
                     <div className="my-employee-card">
