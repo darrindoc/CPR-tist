@@ -1,4 +1,4 @@
-import { adminAPIData } from '../ComponentAPIManager';
+import { adminAPIData, adminOrgAPIData } from '../ComponentAPIManager';
 import './MyProfile.css'
 import { useState, useEffect } from 'react';
 
@@ -6,7 +6,10 @@ import { useState, useEffect } from 'react';
 
 export default function MyProfile() {
     const [admins, setAdmins ] = useState([])
+    const [adminOrg, setAdminOrg] =useState([])
 
+    const localCPRtistAdmin = localStorage.getItem("activeAdmin");
+const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
 
     useEffect(() => {
         adminAPIData()
@@ -14,6 +17,13 @@ export default function MyProfile() {
             setAdmins(adminArray)
         })
        },[])
+
+       useEffect(() => {
+        adminOrgAPIData()
+        .then((adminOrgArray) => {
+            setAdminOrg(adminOrgArray)
+        })
+        },[])
 
     return (<>
 <div class="m-4">
@@ -54,17 +64,21 @@ export default function MyProfile() {
                         <button type="button" class="btn btn-success">Update Info</button>
                     </div>
                 </div>
+    
                 <div class="tab-pane fade" id="my-organizations">
+                    
+                    
+                    
+                    {adminOrg.map((singleAdminOrg) => 
+                    (singleAdminOrg.adminId === CPRtistAdminObject.id) ?
                     <div className="my-organization-card">
-                        <h5 class="card-title-add">St. Thomas Hospital - ER</h5>
-                        <p>245 Legitimate Street Huntington, WV 25703 </p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
-                    </div>
-                    <div className="my-organization-card">
-                        <h5 class="card-title-add">St. Thomas Hospital - PICU</h5>
-                        <p>245 Legitimate Street Huntington, WV 25703 </p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
-                    </div>
+                        <h4>{singleAdminOrg.org.name}<br></br></h4> 
+                        <p>Address: {singleAdminOrg.org.street} {singleAdminOrg.org.city}, {singleAdminOrg.org.state} {singleAdminOrg.org.zip} </p>
+
+                        </div>
+                        :
+                        <></>
+                        )}
                     <button type="button" class="btn btn-primary">Add Organization</button>
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="my-employees">

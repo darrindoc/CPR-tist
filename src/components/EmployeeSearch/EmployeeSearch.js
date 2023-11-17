@@ -6,35 +6,44 @@ import { useState, useEffect } from "react";
 
 
 import './EmployeeSearch.css'
-import { certAPIData, employeeAPIData } from '../ComponentAPIManager';
+import { adminOrgAPIData, certAPIData, certAPIDataMostRecent, employeeAPIData } from '../ComponentAPIManager';
 
 
 
 
 export default function EmployeeSearch() {
 
-    var expirationDate = new Date(1701388700000);
-    var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear()
+var expirationDate = new Date(1701388700000);
+var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear();
 
-console.log(expDateFormatted)
 
-    const [employees, setEmployees ] = useState([])
-    const [certs, setCerts] =useState([])
 
-    
-    useEffect(() => {
-        employeeAPIData()
-        .then((employeeArray) => {
-            setEmployees(employeeArray)
-        })
-       },[])
+const [employees, setEmployees ] = useState([])
+const [certs, setCerts] =useState([])
+const [recentCerts, setRecentCerts] =useState([])
 
-       useEffect(() => {
-        certAPIData()
-        .then((certArray) => {
-            setCerts(certArray)
-        })
-       },[])
+useEffect(() => {
+    employeeAPIData()
+    .then((employeeArray) => {
+        setEmployees(employeeArray)
+    })
+    },[])
+
+useEffect(() => {
+    certAPIData()
+    .then((certArray) => {
+        setCerts(certArray)
+    })
+    },[])
+
+useEffect(() => {
+    certAPIDataMostRecent()
+    .then((recentCertArray) => {
+        setRecentCerts(recentCertArray)
+    })
+    },[])
+
+
 
 
 return (<>
@@ -82,7 +91,7 @@ return (<>
                             <p>Employee ID: {employee.employeeId}</p>
                             </>
                         )}
-                        {certs.map((cert) => <>
+                        {recentCerts.map((cert) => <>
                             <p>Certified through: {cert.agency} </p>
                             <p>Certification Number: {cert.certNumber} </p>
                             <p>Expiration: {expDateFormatted} </p>

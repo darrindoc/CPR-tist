@@ -42,16 +42,8 @@ export default function NavBar() {
             )}
             </div>
                 
-            <div>
-                <label for="org-select">Organization: </label>
-                <br/>
-                <select name="org-select" id="org-select">
-                    <option value="1">St. Thomas Hospital - ER</option>
-                    <option value="2">St. Thomas Hospital - PICU</option>
 
-                </select>
 
-            </div>
         </div>
     );
 }
