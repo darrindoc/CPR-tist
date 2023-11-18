@@ -22,6 +22,8 @@ const [employees, setEmployees ] = useState([])
 const [certs, setCerts] =useState([])
 const [recentCerts, setRecentCerts] =useState([])
 
+
+
 useEffect(() => {
     employeeAPIData()
     .then((employeeArray) => {
@@ -47,7 +49,6 @@ useEffect(() => {
 
 
 return (<>
-
 <div class="m-4">
     <div class="card text-center">
         <div class="card-header">
@@ -57,7 +58,7 @@ return (<>
                     <a href="#search" class="nav-link active" data-bs-toggle="tab">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#info" class="nav-link" data-bs-toggle="tab">Info</a>
+                    <a href="#info" class="nav-link" data-bs-toggle="tab">Most Recent</a>
                 </li>
                 <li class="nav-item">
                     <a href="#history" class="nav-link" data-bs-toggle="tab">History</a>

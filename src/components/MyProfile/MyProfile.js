@@ -8,7 +8,7 @@ export default function MyProfile() {
     const [admins, setAdmins ] = useState([])
     const [adminOrg, setAdminOrg] =useState([])
 
-    const localCPRtistAdmin = localStorage.getItem("activeAdmin");
+const localCPRtistAdmin = localStorage.getItem("activeAdmin");
 const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
 
     useEffect(() => {
@@ -74,7 +74,7 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
                     <div className="my-organization-card">
                         <h4>{singleAdminOrg.org.name}<br></br></h4> 
                         <p>Address: {singleAdminOrg.org.street} {singleAdminOrg.org.city}, {singleAdminOrg.org.state} {singleAdminOrg.org.zip} </p>
-
+                        <button>Delete Organization</button>
                         </div>
                         :
                         <></>
@@ -92,13 +92,13 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
                         <p>Name: Pedro Turner</p>
                         <p>Title: RN</p>
                         <p>Organization: St. Thomas Hospital - ER</p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
+                        <button type="button" class="btn btn-danger">Delete Employee</button>
                     </div>
                     <div className="my-employee-card">
                         <p>Name: Frances Farmer</p>
                         <p>Title: RN</p>
                         <p>Organization: St. Thomas Hospital - PICU</p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
+                        <button type="button" class="btn btn-danger">Delete Employee</button>
                     </div>
                 </div>
             </div>

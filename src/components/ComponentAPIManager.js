@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 //collects all info from db/admins for selected user
 export const adminAPIData = () => {
-return fetch(`http://localhost:8088/admins?id=3`)
+return fetch(`http://localhost:8088/admins?id=5`)
     .then(res => res.json())
 }
 
@@ -61,3 +61,14 @@ export const adminEmployeeOrgAPIData = () => {
     return fetch(`http://localhost:8088/employeeOrgs/?_expand=employee&_expand=org`)
         .then(res => res.json())
     }
+
+//add new employee
+export const addNewEmployee = (newEmployee) => {
+    return fetch("http://localhost:8088/employees", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newEmployee),
+    });
+}

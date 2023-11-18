@@ -1,9 +1,39 @@
 import './AddEmployee.css'
-
+import { useState } from 'react';
+import { addNewEmployee } from '../ComponentAPIManager';
 
 
 
 export default function AddEmployeeButton() {
+  const [newEmployee, setNewEmployee] = useState({
+    firstName: "",
+    lastName: "",
+    title: "",
+})
+
+const handleControlledInputChange = (e) => {
+
+  const copyNewEmployee = { ...newEmployee }
+
+  copyNewEmployee[`${e.target.id}`] = e.target.value 
+
+  setNewEmployee(copyNewEmployee)
+
+}
+
+
+const addNewEmployee = (e, newEmployee) => {
+  e.preventDefault()
+  return fetch("http://localhost:8088/employees", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEmployee),
+  });
+}
+
+
     return (<>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Add Employee
@@ -15,14 +45,14 @@ export default function AddEmployeeButton() {
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Information</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                  <input type="text" placeholder="First Name"></input><br></br>
-                  <input type="text" placeholder="Last Name"></input><br></br>
-                  <input type="text" placeholder="Title"></input><br></br>
-              </div>
+              <form class="modal-body" onSubmit={(e) => addNewEmployee(e, newEmployee)}>
+                  <input type="text" id="firstName" placeholder="First Name" onChange={handleControlledInputChange}></input><br></br>
+                  <input type="text" id="lastName" placeholder="Last Name" onChange={handleControlledInputChange}></input><br></br>
+                  <input type="text" id="title" placeholder="Title" onChange={handleControlledInputChange}></input><br></br>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </form>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
