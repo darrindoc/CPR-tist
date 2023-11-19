@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 
+const localCPRtistAdmin = localStorage.getItem("activeAdmin");
+const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
+
+
 
 //collects all info from db/admins for selected user
-export const adminAPIData = () => {
-return fetch(`http://localhost:8088/admins?id=5`)
+export const adminAPIData = (id) => {
+return fetch(`http://localhost:8088/admins?id=${CPRtistAdminObject.id}`)
     .then(res => res.json())
 }
 
@@ -13,23 +17,27 @@ export const adminOrgsAPI = () => {
         .then(res => res.json())
     }
 
-
+//collects all info from db for all employees
+export const employeesAPIData = () => {
+    return fetch(`http://localhost:8088/employees`)
+        .then(res => res.json())
+    }
 
 //collects all info from db/employees for selected user
 export const employeeAPIData = () => {
-    return fetch(`http://localhost:8088/employees?id=3`)
+    return fetch(`http://localhost:8088/employees?id=4`)
         .then(res => res.json())
     }
 
 //collects all info for certs belonging to specified employee
 export const certAPIData = () => {
-    return fetch(`http://localhost:8088/certs?employeeId=3`)
+    return fetch(`http://localhost:8088/certs?employeeId=4`)
         .then(res => res.json())
     }
 
 //collects all info for certs belonging to specified employee and sorts
 export const certAPIDataMostRecent = () => {
-    return fetch(`http://localhost:8088/certs?employeeId=3&_sort=expiration_asc&_limit=1`)
+    return fetch(`http://localhost:8088/certs?employeeId=4&_sort=expiration_asc&_limit=1`)
         .then(res => res.json())
     }
 

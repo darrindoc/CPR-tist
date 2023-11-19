@@ -1,15 +1,13 @@
 import './AddEmployee.css'
 import { useState } from 'react';
-import { addNewEmployee } from '../ComponentAPIManager';
 
 
 
-export default function AddEmployeeButton() {
+export default function DeleteEmployeeButton() {
   const [newEmployee, setNewEmployee] = useState({
     firstName: "",
     lastName: "",
     title: "",
-    employeeId: ""
 })
 
 const handleControlledInputChange = (e) => {
@@ -23,10 +21,10 @@ const handleControlledInputChange = (e) => {
 }
 
 
-const addNewEmployee = (e, newEmployee) => {
+const DeleteEmployee = (e, newEmployee) => {
   e.preventDefault()
   return fetch("http://localhost:8088/employees", {
-      method: "POST",
+      method: "DELETE",
       headers: {
           "Content-Type": "application/json",
       },
@@ -50,7 +48,6 @@ const addNewEmployee = (e, newEmployee) => {
                   <input type="text" id="firstName" placeholder="First Name" onChange={handleControlledInputChange}></input><br></br>
                   <input type="text" id="lastName" placeholder="Last Name" onChange={handleControlledInputChange}></input><br></br>
                   <input type="text" id="title" placeholder="Title" onChange={handleControlledInputChange}></input><br></br>
-                  <input type="text" id="employeeId" placeholder="Employee ID#" onChange={handleControlledInputChange}></input><br></br>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
               </form>

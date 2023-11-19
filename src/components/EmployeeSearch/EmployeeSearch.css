@@ -11,3 +11,14 @@
     margin: 1em;
     padding: 1em;
 }
+
+.employee-search-response {
+    border: 2px dotted green;
+    max-width: 50%;
+    margin: 1em
+}
+
+.employee-search-response-group {
+    display: flex;
+    flex-wrap: wrap;
+}

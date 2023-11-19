@@ -6,21 +6,28 @@ import { useState, useEffect } from "react";
 
 
 import './EmployeeSearch.css'
-import { adminOrgAPIData, certAPIData, certAPIDataMostRecent, employeeAPIData } from '../ComponentAPIManager';
+import { adminOrgAPIData, certAPIData, certAPIDataMostRecent, employeeAPIData, employeesAPIData } from '../ComponentAPIManager';
+import { SearchEmployeesContainer } from './SearchEmployeesContainer';
 
 
 
 
-export default function EmployeeSearch() {
+export default function EmployeeSearch( {}) {
 
 var expirationDate = new Date(1701388700000);
 var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear();
 
 
-
+const [activeEmployee, setActiveEmployee ] = useState([])
 const [employees, setEmployees ] = useState([])
 const [certs, setCerts] =useState([])
 const [recentCerts, setRecentCerts] =useState([])
+
+
+
+useEffect(() => {
+    
+})
 
 
 
@@ -77,8 +84,7 @@ return (<>
                 <div class="tab-pane fade show active" id="search">
                     <h5 class="card-title">Employee Search</h5>
                     <div className='emp-search-form'>
-                        <input type="text"></input>
-                        <button>Search</button>
+                        <SearchEmployeesContainer />
                         <br></br>
                         <br></br>
                         <h5>No matches found?</h5>

@@ -21,29 +21,28 @@ export default function NavBar() {
     })
    },[])
 
-    return (
-        <div className="navbar">
-            <div className='logout-button'>
-            <Link
-                className='navbar__link'
-                to=''
-                onClick={() => {
-                    localStorage.removeItem("activeAdmin");
-                    navigate("/", { replace: true });
-                }}
-            >
-                <button type="button" class="btn btn-dark">Logout</button>
-            </Link>
-            </div>
-            <div className="logged-in-as">
-                
+    return (<>
+    <nav class="navbar bg-danger text-white">
+  <div class="container-fluid">
+    <div className="logged-in-as">
             {admins.map((admin) => 
-                <p>Logged in as: <br></br>{admin.firstName} {admin.lastName}</p>
+                <p>Logged in as: <br></br>{admin.firstName} {admin.lastName}, {admin.title}</p>
             )}
             </div>
-                
-
-
-        </div>
+    <div className='logout-button'>
+    <Link
+        className='navbar__link'
+        to=''
+        onClick={() => {
+            localStorage.removeItem("activeAdmin");
+            navigate("/", { replace: true });
+        }}
+    >
+        <button type="button" class="btn btn-dark">Logout</button>
+    </Link>
+    </div>
+  </div>
+</nav>
+        </>
     );
 }

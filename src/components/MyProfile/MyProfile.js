@@ -1,6 +1,7 @@
 import { adminAPIData, adminOrgAPIData } from '../ComponentAPIManager';
 import './MyProfile.css'
 import { useState, useEffect } from 'react';
+import UpdateMyInfo from './UpdateMyInfo';
 
 
 
@@ -55,13 +56,9 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
                         email: {admin.email}                       
                         </> 
             )}
-                            <div>First Name: <input type="text" placeholder="First Name"/></div>
-                            <div>Last Name: <input type="text" placeholder="Last Name"/></div>
-                            <div>Title: <input type="text" placeholder="Title"/></div>
-                            <div>Email: <input type="text" placeholder="email"/></div>
-                            <div>Password: <input type="text" placeholder="password"/></div>
+
                         </div>
-                        <button type="button" class="btn btn-success">Update Info</button>
+                        <UpdateMyInfo />
                     </div>
                 </div>
     
