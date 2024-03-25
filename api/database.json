@@ -914,7 +914,7 @@
       "firstName": "Freddie",
       "lastName": "Reubens",
       "title": "Nursing Manager",
-      "email": "freubens@sttom.org",
+      "email": "freubens@CPR.org",
       "password": "freddiepw"
     },
     {
@@ -923,7 +923,7 @@
       "firstName": "Ingrid",
       "lastName": "Castlegate",
       "title": "HR Business Partner",
-      "email": "icastlegate@shh.org",
+      "email": "icastlegate@CPR.org",
       "password": "ingridpw"
     },
     {
@@ -1003,7 +1003,7 @@
     {
       "id": 2,
       "CPRlevel": "BLS",
-      "agency": "American Heart Assoication",
+      "agency": "American Heart Association",
       "certNumber": "AHA4711884",
       "expiration": 1701388800,
       "employeeId": 2
