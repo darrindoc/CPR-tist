@@ -981,6 +981,14 @@
       "email": "Chelsea@email.com",
       "password": "fsdgertb",
       "id": 9
+    },
+    {
+      "firstName": "Matthew",
+      "lastName": "Jenkins",
+      "title": "Nurse Manager",
+      "email": "mjenkins@cpr.com",
+      "password": "passwordmj",
+      "id": 10
     }
   ],
   "certs": [
