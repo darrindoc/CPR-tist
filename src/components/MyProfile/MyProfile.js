@@ -1,10 +1,50 @@
+import { adminAPIData, employeeOrgAPIData, adminOrgAPIData, singleAdminOrgAPIData } from '../ComponentAPIManager';
 import './MyProfile.css'
+import { useState, useEffect } from 'react';
+import UpdateMyInfo from './UpdateMyInfo';
 
 
 
 export default function MyProfile() {
-    return (<>
+    const [employees, setEmployees ] = useState([])
+    const [admins, setAdmins ] = useState([])
+    const [adminOrgs, setAdminOrgs] =useState([])
+    const [singleAdminOrg, setSingleAdminOrg] =useState([])
 
+const localCPRtistAdmin = localStorage.getItem("activeAdmin");
+const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
+
+useEffect(() => {
+    employeeOrgAPIData()
+    .then((adminEmpArray) => {
+        setEmployees(adminEmpArray)
+    })
+   },[])
+
+
+    useEffect(() => {
+        adminAPIData()
+        .then((adminArray) => {
+            setAdmins(adminArray)
+        })
+       },[])
+
+       useEffect(() => {
+        adminOrgAPIData()
+        .then((adminOrgArray) => {
+            setAdminOrgs(adminOrgArray)
+        })
+        },[])
+
+        useEffect(() => {
+            singleAdminOrgAPIData()
+            .then((singleAdminOrgArray) => {
+                setSingleAdminOrg(singleAdminOrgArray)
+            })
+            },[])
+
+
+    return (<>
 <div class="m-4">
     <div class="card text-center">
         <div class="card-header">
@@ -27,47 +67,46 @@ export default function MyProfile() {
                     <h5 class="card-title">Update Information</h5>
                     <div className='my-info-form'>
                         <div className="my-info-list">
-                            <div>First Name: <input type="text" placeholder="First Name"/></div>
-                            <div>Last Name: <input type="text" placeholder="Last Name"/></div>
-                            <div>Title: <input type="text" placeholder="Title"/></div>
-                            <div>Email: <input type="text" placeholder="email"/></div>
-                            <div>Password: <input type="text" placeholder="password"/></div>
+                        {admins.map((admin) => 
+                        <>First Name: {admin.firstName}<br></br> 
+                        Last Name: {admin.lastName}<br></br> 
+                        Title: {admin.title}<br></br>
+                        email: {admin.email}   
+                        <UpdateMyInfo key={admin.id} admin={admin}/>                    
+                        </> 
+            )}
                         </div>
-                        <button type="button" class="btn btn-success">Update Info</button>
                     </div>
                 </div>
+    
                 <div class="tab-pane fade" id="my-organizations">
+                    
+                    
+                    
+                    {adminOrgs.map((singleAdminOrg) => 
+                    (singleAdminOrg.adminId === CPRtistAdminObject.id) ?
                     <div className="my-organization-card">
-                        <h5 class="card-title-add">St. Thomas Hospital - ER</h5>
-                        <p>245 Legitimate Street Huntington, WV 25703 </p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
-                    </div>
-                    <div className="my-organization-card">
-                        <h5 class="card-title-add">St. Thomas Hospital - PICU</h5>
-                        <p>245 Legitimate Street Huntington, WV 25703 </p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
-                    </div>
+                        <h4>{singleAdminOrg.org.name}<br></br></h4> 
+                        <p>Address: {singleAdminOrg.org.street} {singleAdminOrg.org.city}, {singleAdminOrg.org.state} {singleAdminOrg.org.zip} </p>
+                        <button>Delete Organization</button>
+                        </div>
+                        :
+                        <></>
+                        )}
                     <button type="button" class="btn btn-primary">Add Organization</button>
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="my-employees">
-                    <div className="my-employee-card">
-                        <p>Name: Sarah Smith</p>
-                        <p>Title: LPN</p>
-                        <p>Organization: St. Thomas Hospital - PICU</p>
-                        <button type="button" class="btn btn-danger">Delete Employee</button>
-                    </div>
-                    <div className="my-employee-card">
-                        <p>Name: Pedro Turner</p>
-                        <p>Title: RN</p>
-                        <p>Organization: St. Thomas Hospital - ER</p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
-                    </div>
-                    <div className="my-employee-card">
-                        <p>Name: Frances Farmer</p>
-                        <p>Title: RN</p>
-                        <p>Organization: St. Thomas Hospital - PICU</p>
-                        <button type="button" class="btn btn-danger">Delete Organization</button>
-                    </div>
+                {employees.map((employee) => {
+               adminOrgs.map((admin) => {
+
+                   return (employee.orgId === admin.orgId ) ?
+                    <div className="employee-organization-card">
+                            <p>Employee List is Working</p>
+                        </div>
+                        :
+                        <p>Employee List is not Working</p>
+                    })
+})}
                 </div>
             </div>
         </div>

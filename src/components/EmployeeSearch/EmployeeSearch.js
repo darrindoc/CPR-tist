@@ -1,14 +1,62 @@
 import CPRUpdateButton from '../CPRUpdate/CPRUpdate';
 import EmployeeUpdateButton from '../EmployeeUpdate/EmployeeUpdate';
 import AddEmployeeButton from '../AddEmployee/AddEmployee';
+
+import { useState, useEffect } from "react";
+
+
 import './EmployeeSearch.css'
+import { adminOrgAPIData, certAPIData, certAPIDataMostRecent, employeeAPIData, employeesAPIData } from '../ComponentAPIManager';
+import { SearchEmployeesContainer } from './SearchEmployeesContainer';
+import { EmployeeDeleteButton } from '../DeleteEmployee/DeleteEmployeeButton';
 
 
 
 
-export default function EmployeeSearch() {
-    return (<>
+export default function EmployeeSearch( {}) {
 
+var expirationDate = new Date(1701388700000);
+var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear();
+
+
+const [activeEmployee, setActiveEmployee ] = useState([3])
+const [employees, setEmployees ] = useState([])
+const [certs, setCerts] =useState([])
+const [recentCerts, setRecentCerts] =useState([])
+
+
+useEffect(() => {
+    employeeAPIData(activeEmployee.id)
+    .then((activeEmployeeState) => {
+        setActiveEmployee(activeEmployeeState)
+    })
+    },[])
+
+useEffect(() => {
+    employeeAPIData()
+    .then((employeeArray) => {
+        setEmployees(employeeArray)
+    })
+    },[])
+
+useEffect(() => {
+    certAPIData()
+    .then((certArray) => {
+        setCerts(certArray)
+    })
+    },[])
+
+useEffect(() => {
+    certAPIDataMostRecent()
+    .then((recentCertArray) => {
+        setRecentCerts(recentCertArray)
+    })
+    },[])
+
+
+
+
+return (<>
 <div class="m-4">
     <div class="card text-center">
         <div class="card-header">
@@ -17,14 +65,16 @@ export default function EmployeeSearch() {
                 <li class="nav-item">
                     <a href="#search" class="nav-link active" data-bs-toggle="tab">Search</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#info" class="nav-link" data-bs-toggle="tab">Info</a>
-                </li>
-                <li class="nav-item">
+
+            {/*    <li class="nav-item">
                     <a href="#history" class="nav-link" data-bs-toggle="tab">History</a>
-                </li>
+                </li>  */}
                 <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Jane Doe, RN</a>
+                <a class="nav-link disabled" aria-disabled="true">
+                    {employees.map((employee) => 
+                         <p>{employee.firstName} {employee.lastName}, {employee.title}</p>
+                    )}
+                </a>
                 </li>
             </ul>
         </div>
@@ -33,8 +83,7 @@ export default function EmployeeSearch() {
                 <div class="tab-pane fade show active" id="search">
                     <h5 class="card-title">Employee Search</h5>
                     <div className='emp-search-form'>
-                        <input type="text"></input>
-                        <button>Search</button>
+                        <SearchEmployeesContainer />
                         <br></br>
                         <br></br>
                         <h5>No matches found?</h5>
@@ -42,25 +91,32 @@ export default function EmployeeSearch() {
                     </div>
                 </div>
                 <div class="tab-pane fade" id="info">
-                    <h5 class="card-title-add">Jane Doe, RN</h5>
-                    <p>Employee ID: JD1445</p>
-                    <p>Certified through: Red Cross</p>
-                    <p>Certification Number: RC8874158</p>
-                    <p>Expiration: 11/30/2023</p>
-                    <EmployeeUpdateButton/>
+                        <div className='employee-demographics'>
+                        {activeEmployee.map((employee) => <>
+                            <h5>{employee.firstName} {employee.lastName}, {employee.title}</h5>
+                            <p>Employee ID: {employee.employeeId}</p>
+                            </>
+                        )}
+                        {recentCerts.map((cert) => <>
+                            <p>Certified through: {cert.agency} </p>
+                            <p>Certification Number: {cert.certNumber} </p>
+                            <p>Expiration: {expDateFormatted} </p>
+                        </>
+                         )}
+                        </div>
                     <CPRUpdateButton/>
-                    <button type="button" class="btn btn-danger">Delete Employee</button>
+                    
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="history">
                     <h5 class="card-title">Certification History</h5>
-                    <div className="cert-history">
-                        <p>Agency: Red Cross</p>
-                        <p>Dates: 11/30/2021 - 11/30/2022</p>
-                    </div>
-                    <div className="cert-history">
-                        <p>Agency: American Heart Association</p>
-                        <p>Dates: 11/30/2020 - 11/30/2021</p>
-                    </div>
+                    {certs.map((cert) => 
+                            <div className='specific-cert-card'>
+                            <p>Agency: {cert.agency} </p>
+                            <p>Certification Number: {cert.certNumber} </p>
+                            <p>Expiration: {expDateFormatted} </p>
+                            </div>
+                         )}
+                    
                 </div>
             </div>
         </div>
