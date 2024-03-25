@@ -4,7 +4,7 @@ export const getAdminEmail = (email) => {
 	);
 };
 
-export const getAdminInfo = (id) => {
+export const getAdminInfo = () => {
 	return fetch(`http://localhost:8088/admins`).then((res) => 
 		res.json()
 	);
