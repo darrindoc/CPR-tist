@@ -1,4 +1,4 @@
-import { adminAPIData, adminOrgAPIData } from '../ComponentAPIManager';
+import { adminAPIData, employeeOrgAPIData, adminOrgAPIData, singleAdminOrgAPIData } from '../ComponentAPIManager';
 import './MyProfile.css'
 import { useState, useEffect } from 'react';
 import UpdateMyInfo from './UpdateMyInfo';
@@ -6,11 +6,21 @@ import UpdateMyInfo from './UpdateMyInfo';
 
 
 export default function MyProfile() {
+    const [employees, setEmployees ] = useState([])
     const [admins, setAdmins ] = useState([])
-    const [adminOrg, setAdminOrg] =useState([])
+    const [adminOrgs, setAdminOrgs] =useState([])
+    const [singleAdminOrg, setSingleAdminOrg] =useState([])
 
 const localCPRtistAdmin = localStorage.getItem("activeAdmin");
 const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
+
+useEffect(() => {
+    employeeOrgAPIData()
+    .then((adminEmpArray) => {
+        setEmployees(adminEmpArray)
+    })
+   },[])
+
 
     useEffect(() => {
         adminAPIData()
@@ -22,9 +32,17 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
        useEffect(() => {
         adminOrgAPIData()
         .then((adminOrgArray) => {
-            setAdminOrg(adminOrgArray)
+            setAdminOrgs(adminOrgArray)
         })
         },[])
+
+        useEffect(() => {
+            singleAdminOrgAPIData()
+            .then((singleAdminOrgArray) => {
+                setSingleAdminOrg(singleAdminOrgArray)
+            })
+            },[])
+
 
     return (<>
 <div class="m-4">
@@ -53,12 +71,11 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
                         <>First Name: {admin.firstName}<br></br> 
                         Last Name: {admin.lastName}<br></br> 
                         Title: {admin.title}<br></br>
-                        email: {admin.email}                       
+                        email: {admin.email}   
+                        <UpdateMyInfo key={admin.id} admin={admin}/>                    
                         </> 
             )}
-
                         </div>
-                        <UpdateMyInfo />
                     </div>
                 </div>
     
@@ -66,7 +83,7 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
                     
                     
                     
-                    {adminOrg.map((singleAdminOrg) => 
+                    {adminOrgs.map((singleAdminOrg) => 
                     (singleAdminOrg.adminId === CPRtistAdminObject.id) ?
                     <div className="my-organization-card">
                         <h4>{singleAdminOrg.org.name}<br></br></h4> 
@@ -79,24 +96,17 @@ const CPRtistAdminObject = JSON.parse(localCPRtistAdmin);
                     <button type="button" class="btn btn-primary">Add Organization</button>
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="my-employees">
-                    <div className="my-employee-card">
-                        <p>Name: Sarah Smith</p>
-                        <p>Title: LPN</p>
-                        <p>Organization: St. Thomas Hospital - PICU</p>
-                        <button type="button" class="btn btn-danger">Delete Employee</button>
-                    </div>
-                    <div className="my-employee-card">
-                        <p>Name: Pedro Turner</p>
-                        <p>Title: RN</p>
-                        <p>Organization: St. Thomas Hospital - ER</p>
-                        <button type="button" class="btn btn-danger">Delete Employee</button>
-                    </div>
-                    <div className="my-employee-card">
-                        <p>Name: Frances Farmer</p>
-                        <p>Title: RN</p>
-                        <p>Organization: St. Thomas Hospital - PICU</p>
-                        <button type="button" class="btn btn-danger">Delete Employee</button>
-                    </div>
+                {employees.map((employee) => {
+               adminOrgs.map((admin) => {
+
+                   return (employee.orgId === admin.orgId ) ?
+                    <div className="employee-organization-card">
+                            <p>Employee List is Working</p>
+                        </div>
+                        :
+                        <p>Employee List is not Working</p>
+                    })
+})}
                 </div>
             </div>
         </div>

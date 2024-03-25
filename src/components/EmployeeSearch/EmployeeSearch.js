@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import './EmployeeSearch.css'
 import { adminOrgAPIData, certAPIData, certAPIDataMostRecent, employeeAPIData, employeesAPIData } from '../ComponentAPIManager';
 import { SearchEmployeesContainer } from './SearchEmployeesContainer';
+import { EmployeeDeleteButton } from '../DeleteEmployee/DeleteEmployeeButton';
 
 
 
@@ -18,18 +19,18 @@ var expirationDate = new Date(1701388700000);
 var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear();
 
 
-const [activeEmployee, setActiveEmployee ] = useState([])
+const [activeEmployee, setActiveEmployee ] = useState([3])
 const [employees, setEmployees ] = useState([])
 const [certs, setCerts] =useState([])
 const [recentCerts, setRecentCerts] =useState([])
 
 
-
 useEffect(() => {
-    
-})
-
-
+    employeeAPIData(activeEmployee.id)
+    .then((activeEmployeeState) => {
+        setActiveEmployee(activeEmployeeState)
+    })
+    },[])
 
 useEffect(() => {
     employeeAPIData()
@@ -64,12 +65,10 @@ return (<>
                 <li class="nav-item">
                     <a href="#search" class="nav-link active" data-bs-toggle="tab">Search</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#info" class="nav-link" data-bs-toggle="tab">Most Recent</a>
-                </li>
-                <li class="nav-item">
+
+            {/*    <li class="nav-item">
                     <a href="#history" class="nav-link" data-bs-toggle="tab">History</a>
-                </li>
+                </li>  */}
                 <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true">
                     {employees.map((employee) => 
@@ -93,7 +92,7 @@ return (<>
                 </div>
                 <div class="tab-pane fade" id="info">
                         <div className='employee-demographics'>
-                        {employees.map((employee) => <>
+                        {activeEmployee.map((employee) => <>
                             <h5>{employee.firstName} {employee.lastName}, {employee.title}</h5>
                             <p>Employee ID: {employee.employeeId}</p>
                             </>
@@ -104,11 +103,9 @@ return (<>
                             <p>Expiration: {expDateFormatted} </p>
                         </>
                          )}
-
                         </div>
-                    <EmployeeUpdateButton/>
                     <CPRUpdateButton/>
-                    <button type="button" class="btn btn-danger">Delete Employee</button>
+                    
                 </div>
                 <div class="tab-pane fade vh-20 overflow-auto" id="history">
                     <h5 class="card-title">Certification History</h5>

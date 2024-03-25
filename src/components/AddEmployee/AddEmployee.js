@@ -9,7 +9,7 @@ export default function AddEmployeeButton() {
     firstName: "",
     lastName: "",
     title: "",
-    employeeId: ""
+    employeeNumber: ""
 })
 
 const handleControlledInputChange = (e) => {
@@ -22,6 +22,9 @@ const handleControlledInputChange = (e) => {
 
 }
 
+const pageReload = () => {
+  window.location.reload();
+}
 
 const addNewEmployee = (e, newEmployee) => {
   e.preventDefault()
@@ -35,24 +38,25 @@ const addNewEmployee = (e, newEmployee) => {
 }
 
 
+
     return (<>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-employee-button">
           Add Employee
         </button>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="add-employee-button" tabindex="-1" aria-labelledby="add-employee-button" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Information</h1>
+                <h1 class="modal-title fs-5" id="add-employee-button">Employee Information</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <form class="modal-body" onSubmit={(e) => addNewEmployee(e, newEmployee)}>
                   <input type="text" id="firstName" placeholder="First Name" onChange={handleControlledInputChange}></input><br></br>
                   <input type="text" id="lastName" placeholder="Last Name" onChange={handleControlledInputChange}></input><br></br>
                   <input type="text" id="title" placeholder="Title" onChange={handleControlledInputChange}></input><br></br>
-                  <input type="text" id="employeeId" placeholder="Employee ID#" onChange={handleControlledInputChange}></input><br></br>
+                  <input type="text" id="employeeNumber" placeholder="Employee ID#" onChange={handleControlledInputChange}></input><br></br>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" onClick={pageReload} class="btn btn-primary">Save changes</button>
               </form>
               <div class="modal-footer">
               </div>

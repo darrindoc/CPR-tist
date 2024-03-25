@@ -6,6 +6,6 @@ export const EmployeeSearchBar = ({ setterFunction }) => {
                     setterFunction(changeEvent.target.value)
                 }
             }   
-        type="text" placeholder="Name or Title" />
+        type="text" placeholder="Name" />
     )
 }

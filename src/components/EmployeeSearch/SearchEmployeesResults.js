@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { employeesAPIData } from "../ComponentAPIManager";
+import { employeesAPIData, employeeAPIData, certAPIDataMostRecent } from "../ComponentAPIManager";
 import { useEffect } from "react";
+import {EmployeeUpdateButton} from "../EmployeeUpdate/EmployeeUpdate";
+import { EmployeeDeleteButton } from "../DeleteEmployee/DeleteEmployeeButton";
+import { EmployeeCard } from "./EmployeeCard";
 
 
 
@@ -8,32 +11,48 @@ import { useEffect } from "react";
 
 export function EmployeeSearchResults( {searchTermsState}) {
 const [allEmployees, setAllEmployees ] = useState([])
-useEffect(() => {
-        employeesAPIData()
+const [filteredEmployees , setFilteredEmployees] =useState([])
+const [selectedEmployee, setSelectedEmployee] = useState({})
+const [recentCerts, setRecentCerts] =useState([])
+
+const getAllEmployees = () => {
+    employeesAPIData()
         .then((allEmployeeArray) => {
             setAllEmployees(allEmployeeArray)
         })
+}
+
+useEffect(() => {
+        getAllEmployees()
         },[])
 
         useEffect(
             () => {
-                const searchedEmployees = allEmployees.filter(emp => emp.firstName.startsWith(searchTermsState))
-                setAllEmployees(searchedEmployees)
+                const searchedEmployees = (searchTermsState === "")? allEmployees  :  allEmployees.filter(emp => emp.firstName.toLowerCase().includes(searchTermsState.toLowerCase()) ) 
+                setFilteredEmployees(searchedEmployees)
             },
-            [ searchTermsState ]
+            [searchTermsState, allEmployees]
         )    
+
+        const handleSelect= (employeeId) => {
+            employeeAPIData(employeeId)
+            .then((singleEmployee) => { 
+                setSelectedEmployee(singleEmployee[0])})
+
+        }
+
+useEffect(() => {
+    certAPIDataMostRecent()
+    .then((recentCertArray) => {
+        setRecentCerts(recentCertArray)
+    })
+    },[])
 
     return (
         <div className="search-bar-container">
             <div data-bs-spy="scroll" className="employee-search-response-group">
-                {allEmployees.map((employees) =>
-                    <div class="card text-center mb-3" >
-                    <div class="card-body">
-                        <h5 class="card-title">{employees.firstName} {employees.lastName}, {employees.title}</h5>
-                        <p>ID: {employees.employeeId}</p>
-                        <button>Select</button>
-                    </div>
-                    </div>
+                {filteredEmployees.map((employee) =>
+                   < EmployeeCard key={employee.id} employee={employee} handleSelect={handleSelect}/>
                 )}
             </div>
         </div>

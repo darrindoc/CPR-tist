@@ -11,13 +11,9 @@ export default function DeleteEmployeeButton() {
 })
 
 const handleControlledInputChange = (e) => {
-
   const copyNewEmployee = { ...newEmployee }
-
   copyNewEmployee[`${e.target.id}`] = e.target.value 
-
   setNewEmployee(copyNewEmployee)
-
 }
 
 

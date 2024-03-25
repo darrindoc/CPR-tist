@@ -24,26 +24,32 @@ export const employeesAPIData = () => {
     }
 
 //collects all info from db/employees for selected user
-export const employeeAPIData = () => {
-    return fetch(`http://localhost:8088/employees?id=4`)
+export const employeeAPIData = (id) => {
+    return fetch(`http://localhost:8088/employees?id=${id}`)
         .then(res => res.json())
     }
 
 //collects all info for certs belonging to specified employee
 export const certAPIData = () => {
-    return fetch(`http://localhost:8088/certs?employeeId=4`)
+    return fetch(`http://localhost:8088/certs?employeeId=2`)
         .then(res => res.json())
     }
 
 //collects all info for certs belonging to specified employee and sorts
 export const certAPIDataMostRecent = () => {
-    return fetch(`http://localhost:8088/certs?employeeId=4&_sort=expiration_asc&_limit=1`)
+    return fetch(`http://localhost:8088/certs?employeeId=2&_sort=expiration_asc&_limit=1`)
         .then(res => res.json())
     }
 
-// collects admin/org relationship info
+// collects all admin/org relationship info
 export const adminOrgAPIData = () => {
     return fetch(`http://localhost:8088/adminOrgs/?_expand=admin&_expand=org`)
+        .then(res => res.json())
+    }
+
+    // collects specific admin/org relationship info
+export const singleAdminOrgAPIData = () => {
+    return fetch(`http://localhost:8088/adminOrgs/?adminId=3&_expand=admin&_expand=org`)
         .then(res => res.json())
     }
 
@@ -80,3 +86,10 @@ export const addNewEmployee = (newEmployee) => {
         body: JSON.stringify(newEmployee),
     });
 }
+
+//delete an employee by id
+export const deleteEmployee = (id) => {
+    return fetch(`http://localhost:8088/employees/${id}`, {
+        method: "DELETE"
+    });
+};
