@@ -6,8 +6,30 @@
     margin: 1em;
 }
 
-.cert-history {
+.specific-cert-card {
     border: 2px solid pink;
     margin: 1em;
     padding: 1em;
+}
+
+.employee-search-response {
+    margin: 1em;
+    border: 2px solid grey;
+    border-radius: 5%;
+}
+
+.employee-search-response-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 40vh;
+    overflow-y: auto;
+    margin-top: 1em;
+}
+
+.most-recent-on-card {
+    border: 3px solid grey;
+    margin-bottom: 1em;
+    border-radius: 2%;
+    padding-bottom: 1rem
 }
