@@ -8,13 +8,15 @@ import CPRUpdateButton from "../CPRUpdate/CPRUpdate"
 
 export const EmployeeCard = ({employee, handleSelect}) => {
 
+    const [employeeData, setEmployeeData] = useState(employee)
     const [recentCerts, setRecentCerts] =useState([])
 
     var expirationDate = new Date(1701388700000);
     var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear();
 
+    
     useEffect(() => {
-        certAPIDataMostRecent()
+        certAPIDataMostRecent(employee)
         .then((recentCertArray) => {
             setRecentCerts(recentCertArray)
         })
