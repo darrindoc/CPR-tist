@@ -11,12 +11,8 @@ export const EmployeeCard = ({employee, handleSelect}) => {
     const [employeeData, setEmployeeData] = useState(employee)
     const [recentCerts, setRecentCerts] =useState([])
 
-    var expirationDate = new Date(1701388700000);
-    var expDateFormatted = (expirationDate.getUTCMonth() + 1) + '-' + expirationDate.getUTCDate() + '-' + expirationDate.getUTCFullYear();
-
-    
     useEffect(() => {
-        certAPIDataMostRecent(employee)
+        certAPIDataMostRecent(employee.id)
         .then((recentCertArray) => {
             setRecentCerts(recentCertArray)
         })
@@ -29,12 +25,19 @@ export const EmployeeCard = ({employee, handleSelect}) => {
         <h5 class="card-title">{employee.firstName} {employee.lastName}, {employee.title}</h5>
         <p>ID: {employee.employeeNumber}</p>
         <div className="most-recent-on-card">
-        {recentCerts.map((cert) => <>
-                            <p>Certified through: {cert.agency} </p>
-                            <p>Certification Number: {cert.certNumber} </p>
-                            <p>Expiration: {expDateFormatted} </p>
-                        </>
-                         )}
+        {recentCerts.length > 0 ? (
+            recentCerts.map((cert) => (
+                    <>
+                        <p>Certified through: {cert.agency} </p>
+                        <p>Certification Number: {cert.certNumber} </p>
+                        <p>Expiration: {new Date(cert.expiration).toLocaleDateString()} </p>
+                    </>
+                ))) : (<>
+                    <h2>No Certification</h2>
+                    <h2>On File!</h2>
+                    <p>Add certification or schedule training ASAP!</p>
+                    </>
+            )}
                          <CPRUpdateButton/>
                          </div>
         <div className="employee-buttons-container">

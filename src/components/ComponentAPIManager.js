@@ -36,8 +36,8 @@ export const certAPIData = () => {
     }
 
 //collects all info for certs belonging to specified employee and sorts
-export const certAPIDataMostRecent = (employee) => {
-    return fetch(`http://localhost:8088/certs?employeeId=${employee.id}&_sort=expiration_asc&_limit=1`)
+export const certAPIDataMostRecent = (id) => {
+    return fetch(`http://localhost:8088/certs?employeeId=${id}&_sort=expiration_asc&_limit=1`)
         .then(res => res.json())
     }
 
