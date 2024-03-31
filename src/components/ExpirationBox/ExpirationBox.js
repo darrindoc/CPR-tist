@@ -1,9 +1,45 @@
+import { useEffect, useState } from 'react';
 import { CurrentlyExpiredCerts } from './CurrentlyExpired';
 import './ExpirationBox.css'
+import { allCerts, employeesAPIData } from '../ComponentAPIManager';
 
-const currentDate = new Date().toLocaleDateString();
+
 
 export default function ExpirationBox() {
+    const [expirations, setExpirations] = useState ([])
+    const [employees, setEmployees ] = useState([])
+
+    const currentDate = new Date().toLocaleDateString();
+
+    const getAllEmployees = () => {
+        employeesAPIData()
+            .then((allEmployeeArray) => {
+                setEmployees(allEmployeeArray)
+            })
+    }
+    
+    useEffect(() => {
+            getAllEmployees()
+            },[])
+
+    useEffect(() => {
+        allCerts()
+        .then((certArray) => {
+            setExpirations(certArray)
+        })
+        },[])
+
+        const expiredCertifications = [];
+
+        expirations.forEach(expiredCert => {
+            const expirationDate = new Date(expiredCert.expiration);
+            const currentDate = new Date();
+            if (expirationDate < currentDate) {
+                expiredCertifications.push(expiredCert);
+            }
+        });
+        
+        console.log(expiredCertifications)
     return (
 <div className='expiration-cards'>
         <div  className="individual-exp-card" class="card text-bg-danger mt-5 mb-4">
@@ -11,12 +47,16 @@ export default function ExpirationBox() {
             <h1>Expired Certifications</h1>
             <p>These employees are forbidden from treating patients until renewed!</p>
         </div>
-        <ul class="list-group list-group-flush">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Peter Jackson, RN: 10/31/2023</li>
-            <li class="list-group-item">Frances Pickleheimer, LPN: 10/31/2023</li>
-            <li class="list-group-item">Mac Flanders, LPN: 10/31/2023</li>
-        </ul>
+        <ul className="list-group list-group-flush">
+            {expiredCertifications.map((expiration, index) => {
+                const employee = employees.find(emp => emp.id === expiration.employeeId);
+                return (
+                    <li key={index} className='list-group-item'>
+                        {`${employee.lastName}, ${employee.firstName}: ${new Date(expiration.expiration).toLocaleDateString()}`}
+                    </li>
+                );
+            })
+            }
         </ul>
     </div>
     <div className="individual-exp-card" class="card text-bg-warning">

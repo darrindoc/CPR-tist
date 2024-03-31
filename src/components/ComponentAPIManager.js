@@ -29,9 +29,21 @@ export const employeeAPIData = (id) => {
         .then(res => res.json())
     }
 
+//collects all info for all employees
+export const fetchAllEmployees = () => {
+    return fetch(`http://localhost:8088/employees`)
+        .then(res => res.json())
+    }
+
 //collects all info for certs belonging to specified employee
 export const certAPIData = () => {
     return fetch(`http://localhost:8088/certs?employeeId=2`)
+        .then(res => res.json())
+    }
+
+    //collects all info for all certs
+export const allCerts = () => {
+    return fetch(`http://localhost:8088/certs?_sort=expiration&_order=asc`)
         .then(res => res.json())
     }
 
