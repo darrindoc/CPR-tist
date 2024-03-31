@@ -1,12 +1,14 @@
 import { CurrentlyExpiredCerts } from './CurrentlyExpired';
 import './ExpirationBox.css'
 
+const currentDate = new Date().toLocaleDateString();
+
 export default function ExpirationBox() {
     return (
 <div className='expiration-cards'>
         <div  className="individual-exp-card" class="card text-bg-danger mt-5 mb-4">
         <div class="card-header">
-            <h1>Current CPR Expirations</h1>
+            <h1>Expired Certifications</h1>
             <p>These employees are forbidden from treating patients until renewed!</p>
         </div>
         <ul class="list-group list-group-flush">

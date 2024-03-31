@@ -4,7 +4,7 @@ import { getAdminEmail, getAdminInfo } from "../../auth/AuthAPIManager";
 import { adminAPIData } from "../ComponentAPIManager";
 import { useState, useEffect } from "react";
 
-
+const currentDate = new Date().toLocaleDateString();
 
 
 
@@ -29,6 +29,7 @@ export default function NavBar() {
                 <p>Logged in as: <br></br>{admin.firstName} {admin.lastName}, {admin.title}</p>
             )}
             </div>
+            <h2>Current date: {currentDate}</h2>
     <div className='logout-button'>
     <Link
         className='navbar__link'
