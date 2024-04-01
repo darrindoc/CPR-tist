@@ -597,7 +597,7 @@
     },
     {
       "id": 86,
-      "firstName": "Gusta",
+      "firstName": "Gustav",
       "lastName": "Fossick",
       "title": "LPN",
       "employeeNumber": 716376
@@ -1524,7 +1524,7 @@
       "CPRlevel": "BLS",
       "agency": "American Heart Association",
       "certNumber": "AHA567890",
-      "expiration": "2025-02-25T12:00:00"
+      "expiration": "2024-04-25T12:00:00"
     },
     {
       "id": 66,
@@ -1660,7 +1660,7 @@
       "CPRlevel": "BLS",
       "agency": "Red Cross",
       "certNumber": "RC234567",
-      "expiration": "2025-03-20T12:00:00"
+      "expiration": "2024-04-20T12:00:00"
     },
     {
       "id": 83,
@@ -1692,7 +1692,7 @@
       "CPRlevel": "BLS",
       "agency": "Red Cross",
       "certNumber": "RC678901",
-      "expiration": "2024-09-12T12:00:00"
+      "expiration": "2024-04-12T12:00:00"
     },
     {
       "id": 87,
