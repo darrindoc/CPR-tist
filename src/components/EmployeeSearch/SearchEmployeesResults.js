@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { employeesAPIData, employeeAPIData, certAPIDataMostRecent } from "../ComponentAPIManager";
+import { fetchAllEmployees, employeeAPIData, certAPIDataMostRecent } from "../ComponentAPIManager";
 import { useEffect } from "react";
 import {EmployeeUpdateButton} from "../EmployeeUpdate/EmployeeUpdate";
 import { EmployeeDeleteButton } from "../DeleteEmployee/DeleteEmployeeButton";
@@ -16,7 +16,7 @@ const [selectedEmployee, setSelectedEmployee] = useState({})
 const [recentCerts, setRecentCerts] =useState([])
 
 const getAllEmployees = () => {
-    employeesAPIData()
+    fetchAllEmployees()
         .then((allEmployeeArray) => {
             setAllEmployees(allEmployeeArray)
         })
